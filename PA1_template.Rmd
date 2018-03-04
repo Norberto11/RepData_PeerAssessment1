@@ -52,7 +52,7 @@ head(nstep)
 
 2. Make a histogram of the total number of steps taken each day
 
-```{r,echo=TRUE}
+```{r histogram_1,echo=TRUE}
 nstep<-as.numeric(nstep$steps)
 hist(nstep,col="grey",main="Steps per day",xlab="steps")
 ```
@@ -62,13 +62,13 @@ hist(nstep,col="grey",main="Steps per day",xlab="steps")
 Let's calculate the mean:
 
 ```{r,echo=TRUE}
-mean(nstep)
+mean1<-mean(nstep)
 ```
 
 Now, let's calculate the median:
 
 ```{r,echo=TRUE}
-median(nstep)
+median1<-median(nstep)
 ```
 
 ##What is the average daily activity pattern?
@@ -140,19 +140,35 @@ hist(nstep_total2,col="grey",main="Steps per day",xlab="steps")
 Let's calculate the mean:
 
 ```{r,echo=TRUE}
-mean(nstep_total2)
+mean2<-mean(nstep_total2)
+mean2
 ```
 
 Now, let's calculate the median:
 
 ```{r,echo=TRUE}
-median(nstep_total2)
+median2<-median(nstep_total2)
+median2
+```
+
+We will now calculate the difference between the mean and median,
+
+```{r, echo=TRUE}
+mean_diff<-mean2-mean1
+mean_diff
+```
+
+```{r, echo=TRUE}
+median_diff<-median2-median1
+median_diff
 ```
 
 The impact observed on this histogram compared with the previous one with no NAs is:
 
 * Frequency for steps from 10000 to 15000 is higher. 
-* Mean and Median has the same value as oppossite with the first calculations that are sligthly different.
+* The mean is the same with or without NAs
+* Mean and Median has the same value with the NAs filled in as oppossite with the first calculations that are sligthly different.
+
 
 ##Are there differences in activity patterns between weekdays and weekends?
 
@@ -192,6 +208,8 @@ amd_final_mean<-amd_final%>%group_by(interval,week_days)%>%summarize(mean(steps)
 colnames(amd_final_mean)[3]<-"steps"
 xyplot(steps~interval|as.factor(week_days),data=amd_final_mean,layout=c(1,2),type="l",ylab="Number of  steps")
 ```
+
+As seen on the generated plot there is a variation between 500 and 1000 interval with higher steps during weekdays than weekends. This may be related to people waking up earlier to work during weekdays. 
 
 
 
