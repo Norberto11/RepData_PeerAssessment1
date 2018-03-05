@@ -1,5 +1,9 @@
-Coursera Reproducible Research Project - Week 2
-================================================
+---
+title: "Reproducible Research: Peer Assessment 1"
+output: 
+  html_document:
+    keep_md: true
+---
 
 This report covers the week 2 assignment from coursera reproducible research.
 
@@ -52,7 +56,7 @@ head(nstep)
 
 2. Make a histogram of the total number of steps taken each day
 
-```{r histogram_1,echo=TRUE}
+```{r histogram_1,echo=TRUE, fig.ext='png',fig.path='figure/'}
 nstep<-as.numeric(nstep$steps)
 hist(nstep,col="grey",main="Steps per day",xlab="steps")
 ```
@@ -75,10 +79,10 @@ median1<-median(nstep)
 
 1. Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
 
-```{r,echo=TRUE}
+```{r,echo=TRUE,fig.ext='png',fig.path='figure/'}
 nstep_int<-no_na_amd%>%group_by(interval)%>%summarize(mean(steps))
 colnames(nstep_int)[2]<-"steps"
-plot(nstep_int$interval,nstep_int$steps,type="l",col="blue",xlab="5-minute interval",ylab="Avg steps", main="Time Series - 5 min Interval vs Avg Steps")
+plot(nstep_int$interval,nstep_int$steps,type="l",col="blue",xlab="interval",ylab="Avg steps", main="Time Series - Interval vs Avg Steps")
 ```
 
 2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
@@ -130,7 +134,7 @@ head(amd_final)
 
 4. Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?
 
-```{r,echo=TRUE}
+```{r,echo=TRUE,fig.ext='png',fig.path='figure/'}
 nstep_total<-amd_final%>%group_by(date)%>%summarize(sum(steps))
 colnames(nstep_total)[2]<-"steps"
 nstep_total2<-as.numeric(nstep_total$steps)
@@ -201,7 +205,7 @@ levels(amd_final$week_days)
 
 
 Plot with lattice,
-```{r,echo=TRUE}
+```{r,echo=TRUE,fig.ext='png',fig.path='figure/'}
 library(lattice)
 amd_final$date<-as.character(amd_final$date)
 amd_final_mean<-amd_final%>%group_by(interval,week_days)%>%summarize(mean(steps))
